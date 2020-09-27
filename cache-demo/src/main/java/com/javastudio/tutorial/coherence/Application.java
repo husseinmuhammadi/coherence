@@ -24,9 +24,9 @@ public class Application {
             IntStream.range(0, 100).forEach(i -> {
                 threads.add(new Thread(() -> {
                     LOGGER.info("Thread {} started!", Thread.currentThread().getName());
-                    IntStream.range(0, 1000).forEach(entry -> cache.put(Thread.currentThread().getName() + String.format("%3d", entry), String.format("%3d", entry)));
+                    IntStream.range(0, 1000).forEach(entry -> cache.put(Thread.currentThread().getName() + String.format("%4d", entry), String.format("%4d", entry)));
                     LOGGER.info("Thread {} stopped!", Thread.currentThread().getName());
-                }, String.format("%02d", i)));
+                }, String.format("%03d", i)));
             });
 
             threads.forEach(Thread::start);

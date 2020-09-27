@@ -21,7 +21,8 @@ ENTRYPOINT ["java","-Xdebug","-Xrunjdwp:server=y,transport=dt_socket,address=400
     "-Dcom.sun.management.jmxremote.authenticate=false", \
     "-Dcom.sun.management.jmxremote.ssl=false", \
     "-Dcom.sun.management.jmxremote.rmi.port=9010", \
-    "-Djava.rmi.server.hostname=$HOST_NAME", \
+#    "-Djava.rmi.server.hostname=$HOST_NAME", \
+    "-Djava.rmi.server.hostname=0.0.0.0", \
     "-jar","coherence-cache-demo.jar"]
 
 # docker build -t coherence-cache-demo:1.0.12 .
