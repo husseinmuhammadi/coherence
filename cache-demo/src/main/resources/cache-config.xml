@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache-config>
+    <caching-scheme-mapping>
+        <cache-mapping>
+            <cache-name>accounts</cache-name>
+            <scheme-name>account-scheme</scheme-name>
+        </cache-mapping>
+    </caching-scheme-mapping>
+
+    <caching-schemes>
+        <distributed-scheme>
+            <scheme-name>account-scheme</scheme-name>
+            <service-name>DistributedCache</service-name>
+
+            <thread-count>200</thread-count>
+            <local-storage>true</local-storage>
+            <backup-count>0</backup-count>
+
+            <backing-map-scheme>
+                <local-scheme/>
+            </backing-map-scheme>
+            <autostart>true</autostart>
+        </distributed-scheme>
+    </caching-schemes>
+</cache-config>

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services: 
+    coherence-cache:
+        build: 
+            dockerfile: ./dockerfile
+            context: .
+            args:                 
+                - HOST_NAME=TAN-HEJRI-HP
+        image: coherence-cache-demo:1.0.13
+        ports: 
+            - "9010:9010"
+        container_name: coherence-cache-demo
+

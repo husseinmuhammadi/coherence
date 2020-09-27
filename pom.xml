@@ -8,7 +8,8 @@
     <artifactId>coherence-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>coherence-cache-demo</module>
+        <module>cache-node</module>
+        <module>cache-demo</module>
     </modules>
     <packaging>pom</packaging>
 
