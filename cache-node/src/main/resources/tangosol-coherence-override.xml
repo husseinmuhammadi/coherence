@@ -1,11 +1,8 @@
 <?xml version='1.0'?>
-
-<!DOCTYPE coherence SYSTEM "coherence.dtd">
-
 <coherence>
     <cluster-config>
         <member-identity>
-            <cluster-name>javahonk</cluster-name>
+            <cluster-name>cluster-1</cluster-name>
         </member-identity>
 
         <multicast-listener>

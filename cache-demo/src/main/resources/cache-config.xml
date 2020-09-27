@@ -13,7 +13,7 @@
             <service-name>DistributedCache</service-name>
 
             <thread-count>200</thread-count>
-            <local-storage>true</local-storage>
+            <local-storage>false</local-storage>
             <backup-count>0</backup-count>
 
             <backing-map-scheme>

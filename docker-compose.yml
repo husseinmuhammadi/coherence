@@ -1,14 +1,24 @@
 version: '3.8'
 
 services: 
-    coherence-cache:
+    coherence-cache-node:
         build: 
-            dockerfile: ./dockerfile
+            dockerfile: ./cache-node/dockerfile
+            context: .
+        image: coherence-cache-node:1.0.0.7
+        ports: 
+            - "9010:9010"
+        container_name: coherence-cache-node
+
+    coherence-cache-demo:
+        build: 
+            dockerfile: ./cache-demo/dockerfile
             context: .
             args:                 
                 - HOST_NAME=TAN-HEJRI-HP
-        image: coherence-cache-demo:1.0.0.1
-        ports: 
-            - "9010:9010"
+        image: coherence-cache-demo:1.0.0.7
         container_name: coherence-cache-demo
+        depends_on: 
+            - "coherence-cache-node"
+        restart: always
 

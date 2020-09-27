@@ -1,0 +1,25 @@
+FROM maven:3.6.0-jdk-11 AS build
+RUN mkdir -p /root/.m2 \
+    && mkdir /root/.m2/repository
+COPY maven/conf/settings.xml /root/.m2
+WORKDIR /workspace
+COPY pom.xml pom.xml
+COPY cache-demo cache-demo
+COPY cache-node cache-node
+RUN mvn clean package
+
+FROM openjdk:11
+WORKDIR /app
+COPY --from=build /workspace/cache-node/target/lib ./lib
+COPY --from=build /workspace/cache-node/target/classes/*.xml ./
+ENTRYPOINT ["java", \
+    "-Dcom.sun.management.jmxremote", \
+    "-Dcom.sun.management.jmxremote.port=9010", \
+    "-Dcom.sun.management.jmxremote.local.only=false", \
+    "-Dcom.sun.management.jmxremote.authenticate=false", \
+    "-Dcom.sun.management.jmxremote.ssl=false", \
+    "-Dcom.sun.management.jmxremote.rmi.port=9010", \
+    "-Djava.rmi.server.hostname=0.0.0.0", \
+    "-Dtangosol.coherence.override=tangosol-coherence-override.xml", \
+    "-cp","lib/*", \
+    "com.tangosol.net.DefaultCacheServer"]

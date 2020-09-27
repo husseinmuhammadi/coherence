@@ -14,18 +14,36 @@ public class Application {
     public static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
+        sleep(3000);
         LOGGER.info("Application started!");
+
+        final int totalEntries = 100000;
+        final int numberOfThreads = 10;
+        final int n = totalEntries / numberOfThreads;
 
         try {
             CacheFactory.ensureCluster();
             NamedCache<String, String> cache = CacheFactory.getCache("accounts");
 
             List<Thread> threads = new ArrayList<>();
-            IntStream.range(0, 100).forEach(i -> {
+            int randomId = random(1, 9999);
+            IntStream.range(0, numberOfThreads).forEach(i -> {
                 threads.add(new Thread(() -> {
-                    LOGGER.info("Thread {} started!", Thread.currentThread().getName());
-                    IntStream.range(0, 1000).forEach(entry -> cache.put(Thread.currentThread().getName() + String.format("%4d", entry), String.format("%4d", entry)));
-                    LOGGER.info("Thread {} stopped!", Thread.currentThread().getName());
+                    String threadName = Thread.currentThread().getName();
+                    LOGGER.info("Thread {} started!", threadName);
+                    IntStream.range(0, n).forEach(entry -> {
+                        if (entry % (n / 10) == 0)
+                            LOGGER.info("Thread {} is in progress... {}%", threadName, entry / (n / 100));
+                        cache.put(
+                                String.format("%4d-%s-%4d",
+                                        randomId,
+                                        threadName,
+                                        entry
+                                ),
+                                String.format("%4d", entry)
+                        );
+                    });
+                    LOGGER.info("Thread {} completed!", threadName);
                 }, String.format("%03d", i)));
             });
 
@@ -45,6 +63,20 @@ public class Application {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    private static void sleep(long millis) {
+        try {
+            LOGGER.info("Wait for coherence nodes to be ready ...!");
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            LOGGER.info(e.getMessage(), e);
+        }
+    }
+
+    private static int random(int min, int max) {
+        int range = max - min + 1;
+        return (int) (Math.random() * range) + min;
     }
 }
 
