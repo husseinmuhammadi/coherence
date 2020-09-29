@@ -15,8 +15,10 @@
     </properties>
 
     <modules>
-        <module>cache-node</module>
-        <module>cache-demo</module>
+        <!--        <module>cache-node</module>-->
+        <!--        <module>cache-demo</module>-->
+        <module>cache-store-node</module>
+        <module>cache-insert</module>
     </modules>
 
     <build>
@@ -72,6 +74,13 @@
             <artifactId>coherence</artifactId>
             <version>20.06.1</version>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.oracle</groupId>-->
+        <!--            <artifactId>coherence</artifactId>-->
+        <!--            <version>12.2.1.3</version>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
