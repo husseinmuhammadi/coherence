@@ -1,1 +1,1 @@
-start java --version; pause
+java "-Dtangosol.coherence.override=tangosol-coherence-override.xml" -cp "lib/*;coherence-cache-store-node.jar" com.tangosol.net.DefaultCacheServer
